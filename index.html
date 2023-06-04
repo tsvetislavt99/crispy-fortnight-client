@@ -20,6 +20,12 @@
     </div>
 
     <script>
+        document.getElementById("message").addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+
         const ws = new WebSocket("wss://ws-server-ur6l.onrender.com/");
 
         ws.addEventListener("message", function (event) {
