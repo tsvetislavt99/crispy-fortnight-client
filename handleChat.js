@@ -48,7 +48,7 @@ function addMessage(message, sender) {
     'bg-gray-300',
     'rounded-lg',
     'px-3',
-    'mr-auto',
+    'mr-2',
   );
 
   node.appendChild(text);
