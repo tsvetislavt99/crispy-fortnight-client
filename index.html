@@ -43,7 +43,7 @@
 
             ws.send(JSON.stringify({ type: "message", data: message }));
 
-            addMessage(message);
+            addMessageFromMe(message);
             document.getElementById("message").value = "";
         }
 
@@ -52,7 +52,19 @@
             const text = document.createTextNode(message);
 
             node.appendChild(text);
-            node.classList.add("text-gray-700", "py-1");
+            node.classList.add("py-1", "w-max", "bg-gray-300", "rounded-lg",
+                "px-3", "mr-auto");
+
+            document.getElementById("chat").appendChild(node);
+        }
+
+        function addMessageFromMe(message) {
+            const node = document.createElement("P");
+            const text = document.createTextNode(message);
+
+            node.appendChild(text);
+            node.classList.add("py-1", "w-max", "bg-green-500", "text-white", "rounded-lg",
+                "px-3", "ml-auto");
 
             document.getElementById("chat").appendChild(node);
         }
