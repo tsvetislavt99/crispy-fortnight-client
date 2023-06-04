@@ -8,7 +8,21 @@
 </head>
 
 <body>
-    <div class="h-screen w-screen flex flex-col justify-between">
+    <!--User pick start-->
+    <div id="user-select-section" class="flex flex-col justify-center items-center h-screen">
+        <div class="flex flex-col justify-center items-center">
+            <h1 class="text-3xl font-bold">Pick a username</h1>
+            <input id="username" type="text" class="px-3 w-full border-t border-gray-300 outline-none text-gray-700"
+                placeholder="Username" />
+            <button id="pick-username-button"
+                class="px-8 py-3 bg-green-500 text-white hover:bg-green-600 transition-colors">Pick</button>
+        </div>
+    </div>
+    <!--User pick end-->
+
+
+    <!--Chat layout start-->
+    <div id="chat-section" class="hidden h-screen w-screen flex flex-col justify-between">
         <div id="chat" class="p-3 overflow-auto">
         </div>
         <div class="flex">
@@ -18,57 +32,12 @@
                 onclick="sendMessage()">Send</button>
         </div>
     </div>
+    <!--Chat layout end-->
 
-    <script>
-        document.getElementById("message").addEventListener("keyup", function (event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
-        });
 
-        const ws = new WebSocket("wss://ws-server-ur6l.onrender.com/");
-
-        ws.addEventListener("message", function (event) {
-            const data = JSON.parse(event.data);
-
-            if (data.type === "message") {
-                addMessage(data.data);
-            }
-        });
-
-        function sendMessage() {
-            const message = document.getElementById("message").value;
-
-            if (!message) return false;
-
-            ws.send(JSON.stringify({ type: "message", data: message }));
-
-            addMessageFromMe(message);
-            document.getElementById("message").value = "";
-        }
-
-        function addMessage(message) {
-            const node = document.createElement("P");
-            const text = document.createTextNode(message);
-
-            node.appendChild(text);
-            node.classList.add("py-1", "w-max", "bg-gray-300", "rounded-lg",
-                "px-3", "mr-auto");
-
-            document.getElementById("chat").appendChild(node);
-        }
-
-        function addMessageFromMe(message) {
-            const node = document.createElement("P");
-            const text = document.createTextNode(message);
-
-            node.appendChild(text);
-            node.classList.add("py-1", "w-max", "bg-green-500", "text-white", "rounded-lg",
-                "px-3", "ml-auto");
-
-            document.getElementById("chat").appendChild(node);
-        }
-    </script>
+    <!--Scripts-->
+    <script src="handleUser.js"></script>
+    <script src="handleChat.js"></script>
 </body>
 
 </html>
